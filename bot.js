@@ -18,48 +18,35 @@ const prefix = "#"
 
 
 
+const adminprefix = "*";
+const developers = ["" , ""];
+
+
+client.on('ready', () => {
+    console.log(`Logged as ${client.user.tag}`)
+})
+
 client.on('message', message => {
+    var argresult = message.content.split(` `).slice(1).join(' ');
+      if (!developers.includes(message.author.id)) return;
+  if (message.content.startsWith(adminprefix + 'ply')) {
+    client.user.setGame(argresult);
+      message.channel.send(``)
+  } else 
+  if (message.content.startsWith(adminprefix + 'wt')) {
+  client.user.setActivity(argresult, {type:'WATCHING'});
+      message.channel.send(``)
+  } else 
+  if (message.content.startsWith(adminprefix + 'ls')) {
+  client.user.setActivity(argresult , {type:'LISTENING'});
+      message.channel.send(``)
+  } else
+  if (message.content.startsWith(adminprefix + 'st')) {
+    client.user.setGame(argresult, "https://www.twitch.tv/osama_gmt");
+      message.channel.send(``)
+  }
+});
 
-          if (!message.content.startsWith(prefix)) return;
-          var args = message.content.split(' ').slice(1);
-          var argresult = args.join(' ');
-          if (message.author.id == 470451682417967116) return;
-
-
-        if (message.content.startsWith(prefix + 'playing')) {
-        if (message.author.id !== '410421617869455370') return message.reply('** هذا الأمر فقط لصاحب البوت و شكراًً **')
-        client.user.setGame(argresult);
-            message.channel.sendMessage(`**${argresult}** : تم تغيير الحالة`)
-        } else
-
-
-        if (message.content.startsWith(prefix + 'streem')) {
-        if (message.author.id !== '410421617869455370') return message.reply('** هذا الأمر فقط لصاحب البوت و شكراًً **')
-        client.user.setGame(argresult, "http://twitch.tv/osamagmt");
-            message.channel.sendMessage(`**${argresult}** :تم تغيير الحالة الى ستريمنج`)
-        } else
-
-        if (message.content.startsWith(prefix + 'setname')) {
-        if (message.author.id !== '410421617869455370') return message.reply('** هذا الأمر فقط لصاحب البوت و شكراًً **')
-          client.user.setUsername(argresult).then
-              message.channel.sendMessage(`**${argresult}** : تم تغير الأسم`)
-          return message.reply("**لا تستطيع تغير الأسم الا بعد ساعتين**");
-        } else
-
-        if (message.content.startsWith(prefix + 'setavatar')) {
-        if (message.author.id !== '410421617869455370') return message.reply('** هذا الأمر فقط لصاحب البوت و شكراًً **')
-        client.user.setAvatar(argresult);
-            message.channel.sendMessage(`**${argresult}** : تم تغير صورة البوت`);
-        } else
-
-
-        if (message.content.startsWith(prefix + 'watching')) {
-        if (message.author.id !== '410421617869455370') return message.reply('** هذا الأمر فقط لصاحب البوت و شكراًً **')
-            client.user.setActivity(argresult, {type : 'watching'});
-         message.channel.sendMessage(`**${argresult}** : تم تغيير الووتشينق الى`)
-        }
-
-         });
 
  
 client.on("message", async message => {
@@ -74,7 +61,7 @@ message.channel.send(`**${prefix}bc <message>**`);
 return;
 }
         message.guild.members.forEach(m => {
-   if(!message.member.hasPermission('ADMINISTRATOR')) return;
+      if (!developers.includes(message.author.id)) return;
  
             m.send(args);
         });
